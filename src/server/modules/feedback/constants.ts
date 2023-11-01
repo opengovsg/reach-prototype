@@ -1,0 +1,18 @@
+export const feedbackToAgencyMap: Record<string, string> = {
+  covid: 'MOH',
+  forwardSG: 'PMO',
+  budget: 'MOF',
+  community: 'MCCY',
+  social: 'MCCY',
+  economy: 'MOF',
+  education: 'MOE',
+  environment: 'NEA',
+  foreign: 'MFA',
+  healthcare: 'MOH',
+  housing: 'MND',
+  manpower: 'MOM',
+  municipal: 'MND',
+  rally: 'PMO',
+  transport: 'MOT',
+  reach: 'MCI',
+}

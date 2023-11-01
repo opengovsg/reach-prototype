@@ -7,3 +7,4 @@ export const submitFeedbackSchema = z.object({
   subject: z.string().min(1).max(50),
   feedbackDetail: z.string().min(1).max(5000),
 })
+export type submitFeedbackInput = z.infer<typeof submitFeedbackSchema>
