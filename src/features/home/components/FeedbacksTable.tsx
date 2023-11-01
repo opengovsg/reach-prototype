@@ -1,35 +1,35 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-} from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, TableContainer } from '@chakra-ui/react'
+import { Feedback } from './Feedback'
 
 type FeedbacksTableProps = {
-  feedbackAddressedGroup: { [key: string]: number }
+  feedbacks: {
+    id: string
+    subject: string
+    feedbackDetail: string
+  }[]
 }
 
 export const FeedbacksTable = ({
-  feedbackAddressedGroup,
+  feedbacks,
 }: FeedbacksTableProps): JSX.Element => {
   return (
     <TableContainer>
       <Table variant="simple">
         <Thead>
           <Tr>
-            <Th>Agency</Th>
-            <Th isNumeric>Count</Th>
+            <Th>Subject</Th>
+            <Th>Feedback Detail</Th>
+            <Th>Forward to Agency</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {Object.entries(feedbackAddressedGroup).map(([agency, count]) => (
-            <Tr key={agency}>
-              <Td>{agency}</Td>
-              <Td isNumeric>{count}</Td>
-            </Tr>
+          {feedbacks.map((feedback) => (
+            <Feedback
+              key={feedback.id}
+              id={feedback.id}
+              subject={feedback.subject}
+              feedbackDetail={feedback.feedbackDetail}
+            />
           ))}
         </Tbody>
       </Table>

@@ -2,6 +2,7 @@ import { trpc } from '~/utils/trpc'
 import { EmptyFeedbackList } from './EmptyFeedbackList'
 import { Stack, StackDivider } from '@chakra-ui/react'
 import { APP_GRID_COLUMN } from '~/constants/layouts'
+import { AgencyFeedbacksTable } from './AgencyFeedbacksTable'
 import { FeedbacksTable } from './FeedbacksTable'
 
 export const FeedbacksList = (): JSX.Element => {
@@ -19,18 +20,14 @@ export const FeedbacksList = (): JSX.Element => {
       }
       return acc
     }, {})
-    console.log(data)
+
   const feedbackNotAddressed = data.filter(
     (feedback) => !feedback.feedbackForwarded
   )
   return (
-    <Stack
-      spacing={0}
-      divider={<StackDivider />}
-      gridColumn={APP_GRID_COLUMN}
-      flexDir="column"
-    >
-      <FeedbacksTable feedbackAddressedGroup={feedbackAddressedGroup} />
+    <Stack spacing={12} gridColumn={APP_GRID_COLUMN} flexDir="column">
+      <AgencyFeedbacksTable feedbackAddressedGroup={feedbackAddressedGroup} />
+      <FeedbacksTable feedbacks={feedbackNotAddressed} />
     </Stack>
   )
 }

@@ -93,18 +93,12 @@ export const feedbackRouter = router({
           },
           agency
         )
-        await sendEmailToSubmitter({
-          name: feedback.name,
-          email: feedback.email,
-          subject: feedback.subject,
-        })
 
         await tx.incomingFeedback.update({
           where: {
             id,
           },
           data: {
-            feedbackResponded: true,
             feedbackForwarded: true,
             forwardedAgency: agency,
           },
