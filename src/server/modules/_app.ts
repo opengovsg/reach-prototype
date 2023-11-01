@@ -8,6 +8,7 @@ import { storageRouter } from './storage/storage.router'
 import { authRouter } from './auth/auth.router'
 import { threadRouter } from './thread/thread.router'
 import { profileRouter } from './profile/profile.router'
+import { feedbackRouter } from './feedback/feedback.router'
 
 export const appRouter = router({
   healthcheck: publicProcedure.query(() => 'yay!'),
@@ -17,6 +18,7 @@ export const appRouter = router({
   post: postRouter,
   thread: threadRouter,
   storage: storageRouter,
+  feedback: feedbackRouter,
 })
 
 export type AppRouter = typeof appRouter

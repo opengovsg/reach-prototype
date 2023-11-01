@@ -4,6 +4,7 @@
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  // url = "postgres://root:root@localhost:26257/app"
 }
 
 generator client {
@@ -82,4 +83,21 @@ model Accounts {
 
   @@unique([provider, providerAccountId])
   @@index([userId])
+}
+
+model IncomingFeedback {
+  id          String   @id @default(cuid())
+  name String
+  email String
+  contactNumber String? @map("contact_number")
+  subject String
+  feedbackDetail String @map("feedback_detail") @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  feedbackResponded Boolean @default(false) @map("feedback_responded")
+  feedbackForwarded Boolean @default(false) @map("feedback_forwarded")
+
+  @@map("incoming_feedback")
+  @@index([feedbackResponded])
+  @@index([feedbackForwarded])
 }
