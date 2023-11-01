@@ -96,7 +96,7 @@ model IncomingFeedback {
   updatedAt   DateTime @updatedAt @map("updated_at")
   feedbackResponded Boolean @default(false) @map("feedback_responded")
   feedbackForwarded Boolean @default(false) @map("feedback_forwarded")
-
+  forwardedAgency String? @map("forwarded_agency")
   @@map("incoming_feedback")
   @@index([feedbackResponded])
   @@index([feedbackForwarded])
