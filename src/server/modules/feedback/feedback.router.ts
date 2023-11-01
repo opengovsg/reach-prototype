@@ -131,8 +131,11 @@ async function sendEmailToAgency(
   },
   agency: string
 ) {
+  const subject = input.subject.toLowerCase().includes('other')
+    ? `A citizen feedback for your action`
+    : `A citizen feedback regarding ${input.subject} - for your action`
   await sendMail({
-    subject: `A citizen feedback regarding ${input.subject}`,
+    subject: subject,
     body: `Dear ${agency},<br><br>
                       We have received a citizen feedback regarding ${input.subject}. Please do the needful.<br><br>
                       <table>

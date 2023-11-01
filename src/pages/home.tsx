@@ -11,16 +11,6 @@ const Home: NextPageWithLayout = () => {
   return (
     <Flex w="100%" flexDir="column">
       <AppGrid
-        templateColumns={APP_GRID_TEMPLATE_COLUMN}
-        px={{ base: '1rem', lg: 0 }}
-        bg="base.canvas.brand-subtle"
-        py="1rem"
-      >
-        <Box gridColumn={APP_GRID_COLUMN}>
-          <NewPostBanner />
-        </Box>
-      </AppGrid>
-      <AppGrid
         flex={1}
         bg="white"
         pb="2.5rem"

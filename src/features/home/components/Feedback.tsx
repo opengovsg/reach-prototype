@@ -1,4 +1,4 @@
-import { Tr, Td } from '@chakra-ui/react'
+import { Tr, Td, Text } from '@chakra-ui/react'
 import { AgencySelect } from './AgencySelect'
 import { trpc } from '~/utils/trpc'
 type FeedbackProps = {
@@ -23,7 +23,9 @@ export const Feedback = ({
   return (
     <Tr key={id}>
       <Td>{subject}</Td>
-      <Td>{feedbackDetail}</Td>
+      <Td>
+        <Text style={{ whiteSpace: 'pre-wrap' }}>{feedbackDetail}</Text>
+      </Td>
       <Td>
         <AgencySelect
           onChange={handleUpdate}

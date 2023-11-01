@@ -38,24 +38,6 @@ export const AppNavbar = (): JSX.Element => {
             priority
           />
         </Link>
-        <HStack
-          textStyle="subhead-1"
-          spacing={{ base: '0.75rem', md: '1.5rem' }}
-        >
-          <AvatarMenu
-            src={me?.image ?? undefined}
-            name={me?.name ?? undefined}
-            variant="subtle"
-            bg="base.canvas.brand-subtle"
-            menuListProps={{ maxWidth: '19rem' }}
-          >
-            <Menu.Item as={NextLink} href={SETTINGS_PROFILE}>
-              Edit profile
-            </Menu.Item>
-            <AvatarMenuDivider />
-            <Menu.Item onClick={() => logout()}>Sign out</Menu.Item>
-          </AvatarMenu>
-        </HStack>
       </Flex>
     </Flex>
   )
