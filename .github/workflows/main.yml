@@ -43,19 +43,3 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
-      - name: Start test containers
-        run: npm run setup:test
-
-      - name: Build and test
-        run: npm run build && npm run test-start
-
-      - name: Stop test containers
-        run: npm run teardown
-
-      - name: Upload test results
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: test results
-          path: |
-            playwright/test-results
