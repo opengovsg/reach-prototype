@@ -1,8 +1,7 @@
-import { Box, Flex } from '@chakra-ui/react'
-import { SkeletonPostList } from '~/components/SkeletonPostList'
+import { Flex } from '@chakra-ui/react'
 import Suspense from '~/components/Suspense'
-import { APP_GRID_COLUMN, APP_GRID_TEMPLATE_COLUMN } from '~/constants/layouts'
-import { NewPostBanner, FeedbacksList } from '~/features/home/components'
+import { APP_GRID_TEMPLATE_COLUMN } from '~/constants/layouts'
+import { FeedbacksList } from '~/features/home/components'
 import { type NextPageWithLayout } from '~/lib/types'
 import { AppGrid } from '~/templates/AppGrid'
 import { AdminLayout } from '~/templates/layouts/AdminLayout'
@@ -17,7 +16,7 @@ const Home: NextPageWithLayout = () => {
         templateColumns={APP_GRID_TEMPLATE_COLUMN}
         px={{ base: '1rem', lg: 0 }}
       >
-        <Suspense fallback={<SkeletonPostList />}>
+        <Suspense>
           <FeedbacksList />
         </Suspense>
       </AppGrid>
