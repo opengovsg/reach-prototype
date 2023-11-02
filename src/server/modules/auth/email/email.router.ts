@@ -9,7 +9,8 @@ import { VerificationError } from '../auth.error'
 import { set } from 'lodash'
 import { env } from '~/env.mjs'
 import { formatInTimeZone } from 'date-fns-tz'
-import { init } from '@paralleldrive/cuid2'
+import { defaultMeSelect } from '../../me/me.select'
+import { generateUsername } from '../../me/me.service'
 
 export const emailSessionRouter = router({
   // Generate OTP.
@@ -85,9 +86,6 @@ export const emailSessionRouter = router({
       }
 
       const emailName = email.split('@')[0] ?? 'unknown'
-      const cuidLen6 = init({ length: 6 })
-      const userName = `${emailName.replace(/\s/g, '')}${cuidLen6()}`
-
       const user = await ctx.prisma.user.upsert({
         where: { email },
         update: {},
@@ -95,8 +93,9 @@ export const emailSessionRouter = router({
           email,
           emailVerified: new Date(),
           name: emailName,
-          username: userName,
+          username: generateUsername(emailName),
         },
+        select: defaultMeSelect,
       })
 
       // TODO: Should only store user id in session.

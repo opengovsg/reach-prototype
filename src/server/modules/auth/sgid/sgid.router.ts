@@ -9,7 +9,8 @@ import { publicProcedure, router } from '~/server/trpc'
 import { getUserInfo, type SgidUserInfo } from './sgid.utils'
 import { env } from '~/env.mjs'
 import { HOME } from '~/lib/routes'
-import { init } from '@paralleldrive/cuid2'
+import { defaultMeSelect } from '../../me/me.select'
+import { generateUsername } from '../../me/me.service'
 
 const sgidCallbackStateSchema = z
   .custom<string>((data) => {
@@ -155,20 +156,21 @@ export const sgidRouter = router({
         update: {},
         include: {
           // Return user that is linked to the account.
-          user: {},
+          user: {
+            select: defaultMeSelect,
+          },
         },
       })
 
       if (!user.username && user.name) {
         // Add generated username to user if not set.
-        const cuidLen6 = init({ length: 6 })
-        const userName = `${user.name.replace(/\s/g, '')}${cuidLen6()}`
+
         user = await ctx.prisma.user.update({
           where: {
             id: user.id,
           },
           data: {
-            username: userName,
+            username: generateUsername(user.name),
           },
         })
       }
