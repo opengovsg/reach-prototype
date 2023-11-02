@@ -9,7 +9,6 @@ import { publicProcedure, router } from '~/server/trpc'
 import { getUserInfo, type SgidUserInfo } from './sgid.utils'
 import { env } from '~/env.mjs'
 import { HOME } from '~/lib/routes'
-import { defaultMeSelect } from '../../me/me.select'
 import { generateUsername } from '../../me/me.service'
 
 const sgidCallbackStateSchema = z
@@ -116,64 +115,15 @@ export const sgidRouter = router({
       }
 
       const sgidUserEmail = sgidUserInfo.data.email
-      let { user } = await ctx.prisma.accounts.upsert({
-        where: {
-          provider_providerAccountId: {
-            provider: 'sgid',
-            providerAccountId: sgidUserInfo.sub,
-          },
-        },
-        create: {
-          provider: 'sgid',
-          providerAccountId: sgidUserInfo.sub,
-          user: {
-            ...(sgidUserEmail
-              ? {
-                  connectOrCreate: {
-                    where: {
-                      email: sgidUserEmail,
-                    },
-                    create: {
-                      email: sgidUserEmail,
-                      emailVerified: new Date(),
-                      name: sgidUserInfo.data['myinfo.name'],
-                      username: generateUsername(sgidUserEmail),
-                    },
-                  },
-                }
-              : {
-                  create: {
-                    name: sgidUserInfo.data['myinfo.name'],
-                    username: generateUsername(
-                      sgidUserInfo.data['myinfo.name']
-                    ),
-                  },
-                }),
-          },
-        },
-        // If there is a user that is connected to the account, it would have
-        // been connected on creation.
-        update: {},
-        include: {
-          // Return user that is linked to the account.
-          user: {
-            select: defaultMeSelect,
-          },
+      const name = sgidUserInfo.data['myinfo.name']
+      const user = await ctx.prisma.user.create({
+        data: {
+          email: sgidUserEmail,
+          emailVerified: new Date(),
+          name: sgidUserInfo.data['myinfo.name'],
+          username: generateUsername(name ?? sgidUserEmail),
         },
       })
-
-      if (!user.username && user.name) {
-        // Add generated username to user if not set.
-
-        user = await ctx.prisma.user.update({
-          where: {
-            id: user.id,
-          },
-          data: {
-            username: generateUsername(user.name),
-          },
-        })
-      }
 
       ctx.session.destroy()
       ctx.session.user = user

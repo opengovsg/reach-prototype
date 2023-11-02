@@ -1,6 +1,6 @@
 import { trpc } from '~/utils/trpc'
 import { EmptyFeedbackList } from './EmptyFeedbackList'
-import { Stack, StackDivider } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import { APP_GRID_COLUMN } from '~/constants/layouts'
 import { AgencyFeedbacksTable } from './AgencyFeedbacksTable'
 import { FeedbacksTable } from './FeedbacksTable'

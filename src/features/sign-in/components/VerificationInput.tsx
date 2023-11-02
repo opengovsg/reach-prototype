@@ -23,7 +23,6 @@ const emailVerificationSchema = emailSignInSchema.extend({
 export const VerificationInput = (): JSX.Element => {
   const { setHasLoginStateFlag } = useLoginState()
   const router = useRouter()
-  const utils = trpc.useContext()
 
   const { email, timer, setTimer, delayForResendSeconds } = useSignInContext()
 
@@ -63,7 +62,6 @@ export const VerificationInput = (): JSX.Element => {
       },
       {
         onSuccess: async () => {
-          await utils.me.get.invalidate()
           setHasLoginStateFlag()
           // accessing router.query values returns decoded URI params automatically,
           // so there's no need to call decodeURIComponent manually when accessing the callback url.

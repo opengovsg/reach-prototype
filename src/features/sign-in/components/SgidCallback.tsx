@@ -7,7 +7,6 @@ import { trpc } from '~/utils/trpc'
  * This component is responsible for handling the callback from the SGID login.
  */
 export const SgidCallback = () => {
-  const utils = trpc.useContext()
   const router = useRouter()
   const { setHasLoginStateFlag } = useLoginState()
   const {
@@ -22,7 +21,6 @@ export const SgidCallback = () => {
     {
       onSuccess: async ({ redirectUrl }) => {
         setHasLoginStateFlag()
-        await utils.me.get.invalidate()
         await router.replace(redirectUrl)
       },
       onError: async (error) => {
