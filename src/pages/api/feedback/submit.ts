@@ -21,13 +21,14 @@ const submitFeedbackHandler = async (
   try {
     let signature = ''
     // check if signature is of type array
+    console.log('form headers', req.headers)
     console.log('form signature header', req.headers['X-FormSG-Signature'])
     if (Array.isArray(req.headers['X-FormSG-Signature'])) {
       signature = req.headers['X-FormSG-Signature'][0] ?? ''
     }
     form.webhooks.authenticate(signature, POST_URI)
   } catch (e) {
-    res.status(401).send({ message: 'Unauthorized' })
+    return res.status(401).json({ message: 'Unauthorized' })
   }
   try {
     const submission = form.crypto.decrypt(formSecretKey, req.body.data)
