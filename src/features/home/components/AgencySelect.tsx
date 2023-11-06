@@ -25,6 +25,7 @@ export const AgencySelect = ({
 }: AgencySelectProps): JSX.Element => {
   return (
     <SingleSelect
+      placeholder={'Select Agency'}
       name="agency"
       items={agencyNames}
       onChange={(value) => onChange(value)}

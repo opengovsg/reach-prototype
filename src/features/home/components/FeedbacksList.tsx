@@ -25,7 +25,12 @@ export const FeedbacksList = (): JSX.Element => {
     (feedback) => !feedback.feedbackForwarded
   )
   return (
-    <Stack spacing={12} gridColumn={APP_GRID_COLUMN} flexDir="column">
+    <Stack
+      spacing={12}
+      gridColumn={APP_GRID_COLUMN}
+      flexDir="column"
+      mt={'56px'}
+    >
       <AgencyFeedbacksTable feedbackAddressedGroup={feedbackAddressedGroup} />
       <FeedbacksTable feedbacks={feedbackNotAddressed} />
     </Stack>

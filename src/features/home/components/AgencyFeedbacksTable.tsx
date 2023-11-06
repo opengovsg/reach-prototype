@@ -7,6 +7,9 @@ import {
   Td,
   TableContainer,
   Heading,
+  Card,
+  CardHeader,
+  CardBody,
 } from '@chakra-ui/react'
 
 type FeedbacksTableProps = {
@@ -17,29 +20,32 @@ export const AgencyFeedbacksTable = ({
   feedbackAddressedGroup,
 }: FeedbacksTableProps): JSX.Element => {
   return (
-    <>
-      <Heading as="h3" size="lg">
-        {'Feedbacks addressed count'}
-      </Heading>
-
-      <TableContainer>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Agency</Th>
-              <Th isNumeric>Count</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {Object.entries(feedbackAddressedGroup).map(([agency, count]) => (
-              <Tr key={agency}>
-                <Td>{agency}</Td>
-                <Td isNumeric>{count}</Td>
+    <Card>
+      <CardHeader>
+        <Heading size="lg">Feedbacks addressed count</Heading>
+      </CardHeader>
+      <CardBody>
+        <TableContainer>
+          <Table variant="simple">
+            <Thead bg={'blue.100'}>
+              <Tr>
+                <Th color={'blue.400'}>Agency</Th>
+                <Th isNumeric color={'blue.400'}>
+                  Count
+                </Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </>
+            </Thead>
+            <Tbody>
+              {Object.entries(feedbackAddressedGroup).map(([agency, count]) => (
+                <Tr key={agency}>
+                  <Td>{agency}</Td>
+                  <Td isNumeric>{count}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </CardBody>
+    </Card>
   )
 }
