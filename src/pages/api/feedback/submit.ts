@@ -34,19 +34,10 @@ const submitFeedbackHandler = async (
     const submitFeedback: submitFeedbackInput = {
       name: '',
       email: '',
-      contactNumber: '',
       subject: '',
       feedbackDetail: '',
     }
     submission?.responses?.map((response) => {
-      console.log(
-        'question',
-        response.question,
-        'answer',
-        response.answer,
-        'answer type',
-        typeof response.answer
-      )
       switch (response.question) {
         case 'Name':
           submitFeedback.name = response.answer ?? ''
@@ -55,7 +46,9 @@ const submitFeedbackHandler = async (
           submitFeedback.email = response.answer ?? ''
           break
         case 'Contact Number':
-          submitFeedback.contactNumber = response.answer ?? ''
+          if (response.answer) {
+            submitFeedback.contactNumber = response.answer
+          }
           break
         case 'Subject':
           submitFeedback.subject = response.answer ?? ''
@@ -65,7 +58,7 @@ const submitFeedbackHandler = async (
           break
       }
     })
-    console.log('submitFeedback', JSON.stringify(submitFeedback))
+
     await caller.feedback.submitFeedback(submitFeedback)
     res.status(201).end()
   } catch (cause) {
