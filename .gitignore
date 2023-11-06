@@ -45,3 +45,4 @@ playwright/test-results
 
 # storybook
 build-storybook.log
+*.crt
