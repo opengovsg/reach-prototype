@@ -22,7 +22,7 @@ export const AgencyFeedbacksTable = ({
   return (
     <Card>
       <CardHeader>
-        <Heading size="lg">Feedbacks addressed count</Heading>
+        <Heading size="lg">Feedbacks grouped by agency</Heading>
       </CardHeader>
       <CardBody>
         <TableContainer>
