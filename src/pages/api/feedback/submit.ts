@@ -31,7 +31,6 @@ const submitFeedbackHandler = async (
   }
   try {
     const submission = form.crypto.decrypt(formSecretKey, req.body.data)
-    console.log('submission data', submission)
     const submitFeedback: submitFeedbackInput = {
       name: '',
       email: '',
@@ -40,6 +39,14 @@ const submitFeedbackHandler = async (
       feedbackDetail: '',
     }
     submission?.responses?.map((response) => {
+      console.log(
+        'question',
+        response.question,
+        'answer',
+        response.answer,
+        'answer type',
+        typeof response.answer
+      )
       switch (response.question) {
         case 'Name':
           submitFeedback.name = response.answer ?? ''
@@ -58,7 +65,7 @@ const submitFeedbackHandler = async (
           break
       }
     })
-
+    console.log('submitFeedback', JSON.stringify(submitFeedback))
     await caller.feedback.submitFeedback(submitFeedback)
     res.status(201).end()
   } catch (cause) {
