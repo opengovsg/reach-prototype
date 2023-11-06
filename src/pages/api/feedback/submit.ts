@@ -20,11 +20,10 @@ const submitFeedbackHandler = async (
   const caller = appRouter.createCaller(ctx)
   try {
     let signature = ''
-    // check if signature is of type array
-    console.log('form headers', req.headers)
-    console.log('form signature header', req.headers['X-FormSG-Signature'])
-    if (Array.isArray(req.headers['X-FormSG-Signature'])) {
-      signature = req.headers['X-FormSG-Signature'][0] ?? ''
+    if (Array.isArray(req.headers['x-formsg-signature'])) {
+      signature = req.headers['x-formsg-signature'][0] ?? ''
+    } else {
+      signature = req.headers['x-formsg-signature'] ?? ''
     }
     form.webhooks.authenticate(signature, POST_URI)
   } catch (e) {
