@@ -1,6 +1,6 @@
 export const feedbackToAgencyMap: Record<string, string> = {
   covid: 'MOH',
-  forwardsg: 'PMO',
+  Forward: 'PMO',
   budget: 'MOF',
   community: 'MCCY',
   social: 'MCCY',
@@ -15,4 +15,5 @@ export const feedbackToAgencyMap: Record<string, string> = {
   rally: 'PMO',
   transport: 'MOT',
   reach: 'MCI',
+  governance: 'pmo',
 }
